@@ -1,0 +1,179 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulk Import Tool</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/datatables")
+</head>
+<body>
+
+    <div class="body-content" style="max-width:1200px; margin:0 auto">
+        @Html.Partial("_Import")
+    </div>
+  
+    <div class="tablecontainer body-content" style="max-width:1200px; margin:0 auto">
+            
+        <a class="popup btn btn-primary" href="/home/update/0" style="margin-bottom: 20px; margin-top: 20px;">Add New Employee</a>
+        
+        <table id="empDataTable" class="display">
+            @*other classes: stripped, hover, order-column, row-border*@
+            <thead>
+                <tr>
+                    <th>Payroll_Number</th>
+                    <th>Forenames</th>
+                    <th>Surname</th>
+                    <th>Date_of_Birth</th>
+                    <th>Telephone</th>
+                    @*<th>Mobile</th>
+                    <th>Address</th>
+                    <th>Address_2</th>
+                    <th>Postcode</th>*@
+                    <th>EMail_Home</th>
+                    <th>Start_Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Created By Rovshan</p>
+        </footer>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+
+                // Set DataTable
+                var table = $('#empDataTable').DataTable({
+                    ajax: {
+                        url: "/home/GetEmployees",
+                        type: "get",
+                        datatype: "json"
+                    },
+                    columns: [
+                        {
+                            width: "50px",
+                            data: null,
+                            render: function (data, type, full, meta) {
+                                return '<a class="popup" href="/home/update/' + full.Id + '">' + full.Payroll_Number + '</a>';
+                            }
+                        },
+                        { data: "Forenames", "autoWidth": true },
+                        { data: "Surname", "autoWidth": true },
+                        {
+                            autoWidth: true,
+                            data: "Date_of_Birth",
+                            render: function (dob) {
+                                var date = new Date(parseInt(dob.substr(6)));
+                                var month = date.getMonth() + 1;
+                                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                            }
+                        },
+                        { data: "Telephone", "autoWidth": true },
+                        //{ data: "Mobile", "autoWidth": true },
+                        //{ data: "Address", "autoWidth": true },
+                        //{ data: "Address_2", "autoWidth": true },
+                        //{ data: "Postcode", "autoWidth": true },
+                        { data: "EMail_Home", "autoWidth": true },
+                        {
+                            autoWidth: true,
+                            data: "Start_Date",
+                            render: function (dob) {
+                                var date = new Date(parseInt(dob.substr(6)));
+                                var month = date.getMonth() + 1;
+                                return date.getDate() + "/" + month + "/" + date.getFullYear();
+                            }
+                        },
+                        {
+                            data: "Id", "width": "50px", "render": function (id) {
+                                return '<a class="popup" href="/home/delete/' + id + '"><i class="glyphicon glyphicon-trash"></i></a>';
+                            },
+                            sortable: false
+                        }
+                    ],
+                    order: [[2, 'asc']],
+                    autoWidth: false
+                });
+
+                // Add onclick event to Add New Employee button
+                $('.tablecontainer').on('click', 'a.popup', function (e) {
+                    e.preventDefault();
+
+                    // Call OpenPopup using current url
+                    OpenPopup($(this).attr('href'));
+                })
+
+                function OpenPopup(pageUrl) {
+
+                    // Create a new div element
+                    var $pageContent = $('<div/>');
+
+                    // Popupate the new div
+                    $pageContent.load(pageUrl, function () {
+
+                        // Remove jQuery validation 
+                        $('#popupForm', $pageContent).removeData('validator');
+                        $('#popupForm', $pageContent).removeData('unobtrusiveValidation');
+
+                        // Add jQuery validation back
+                        $.validator.unobtrusive.parse('form');
+                    });
+
+                    // Set jQuery variable for new popup dialog box with the div
+                    $dialog = $('<div class="popupWindow" style="overflow:auto"></div>')
+                        .html($pageContent)
+                        .dialog({
+                            draggable: false,
+                            autoOpen: false,
+                            resizable: false,
+                            model: true,
+                            title: 'Employee Information',
+                            height: 550,
+                            maxWidth: 600,
+                            close: function () {
+                                $dialog.dialog('destroy').remove();
+                            }
+                        });
+
+                    // Add submit event to popup dialog box
+                    $('.popupWindow').on('submit', '#popupForm', function (e) {
+                        var url = $('#popupForm')[0].action;
+                        $.ajax({
+                            type: 'POST',
+                            url: url,
+                            data: $('#popupForm').serialize(),
+                            success: function (data) {
+                                if (data.status) {
+                                    $dialog.dialog('close');
+                                    table.ajax.reload();
+                                }
+                            },
+                            error: function (jqxhr, status, exception) {
+                            }
+                        });
+
+                        e.preventDefault();
+                    });
+
+                    // Open popup dialog box
+                    $dialog.dialog('open');
+                }
+            })
+        </script>
+</body>
+</html>

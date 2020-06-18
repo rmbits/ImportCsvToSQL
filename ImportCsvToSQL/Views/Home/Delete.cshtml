@@ -1,0 +1,68 @@
+﻿@model ImportCsvToSQL.Models.Employee
+
+<h3>Delete Employee</h3>
+<hr />
+
+@using (Html.BeginForm("delete", "home", FormMethod.Post, new { id = "popupForm" }))
+{
+    @Html.HiddenFor(e => e.Id)
+
+    <div class="form-group">
+        <label>Payroll_Number</label>
+        <p>@Model.Payroll_Number</p>
+    </div>
+
+    <div class="form-group">
+        <label>Forenames</label>
+        <p>@Model.Forenames</p>
+    </div>
+
+    <div class="form-group">
+        <label>Surname</label>
+        <p>@Model.Surname</p>
+    </div>
+
+    <div class="form-group">
+        <label>Date_of_Birth</label>
+        <p>@Model.Date_of_Birth</p>
+    </div>
+
+    <div class="form-group">
+        <label>Telephone</label>
+        <p>@Model.Telephone</p>
+    </div>
+
+    <div class="form-group">
+        <label>Mobile</label>
+        <p>@Model.Mobile</p>
+    </div>
+
+    <div class="form-group">
+        <label>Address</label>
+        <p>@Model.Address</p>
+    </div>
+
+    <div class="form-group">
+        <label>Address_2</label>
+        <p>@Model.Address_2</p>
+    </div>
+
+    <div class="form-group">
+        <label>Postcode</label>
+        <p>@Model.Postcode</p>
+    </div>
+
+    <div class="form-group">
+        <label>EMail_Home</label>
+        <p>@Model.EMail_Home</p>
+    </div>
+
+    <div class="form-group">
+        <label>Start_Date</label>
+        <p>@Model.Start_Date</p>
+    </div>
+
+    <div>
+        <input type="submit" value="Delete" class="btn btn-primary"/>
+    </div>
+}

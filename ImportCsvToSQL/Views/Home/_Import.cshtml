@@ -1,0 +1,27 @@
+﻿
+    
+<div class="form-group">
+    <h3>Import Employee Data</h3>
+    <hr /> <br />
+    @using (Html.BeginForm("ImportCsv", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input class="form-control-file" type="file" name="file" id="file" /><br>
+
+        <div>
+            <input class="btn btn-primary" type="submit" value="Import" />
+
+            @if (TempData.Count > 0)
+            {
+                if (TempData["SuccessMessage"] != null)
+                {
+                    <span class="alert-success .d-block" id="successMessage">@TempData["SuccessMessage"]</span>
+                }
+                else
+                {
+                    <span class="alert-danger .d-block" id="errorMessage">@TempData["ErrorMessage"]</span>
+                }
+            }
+        </div>
+    }
+</div>
+    

@@ -1,0 +1,74 @@
+﻿
+@model ImportCsvToSQL.Models.Employee
+
+
+<h3>Update Employee</h3>
+<hr />
+@using (Html.BeginForm("update", "home", FormMethod.Post, new { id = "popupForm" }))
+{
+    if (Model != null && Model.Id > 0)
+    {
+        @Html.HiddenFor(e => e.Id)
+    }
+
+    <div class="form-group">
+        <label>Payroll_Number</label>
+        @Html.TextBoxFor(e => e.Payroll_Number, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Payroll_Number)
+    </div>
+    <div class="form-group">
+        <label>Forenames</label>
+        @Html.TextBoxFor(e => e.Forenames, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Forenames)
+    </div>
+    <div class="form-group">
+        <label>Surname</label>
+        @Html.TextBoxFor(e => e.Surname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Surname)
+    </div>
+    <div class="form-group">
+        <label>Date_of_Birth</label>
+        @Html.TextBoxFor(e => e.Date_of_Birth, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Date_of_Birth)
+    </div>
+    <div class="form-group">
+        <label>Telephone</label>
+        @Html.TextBoxFor(e => e.Telephone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Telephone)
+    </div>
+    <div class="form-group">
+        <label>Mobile</label>
+        @Html.TextBoxFor(e => e.Mobile, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Mobile)
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        @Html.TextBoxFor(e => e.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Address)
+    </div>
+    <div class="form-group">
+        <label>Address_2</label>
+        @Html.TextBoxFor(e => e.Address_2, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Address_2)
+    </div>
+    <div class="form-group">
+        <label>Postcode</label>
+        @Html.TextBoxFor(e => e.Postcode, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Postcode)
+    </div>
+    <div class="form-group">
+        <label>EMail_Home</label>
+        @Html.TextBoxFor(e => e.EMail_Home, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.EMail_Home)
+    </div>
+    <div class="form-group">
+        <label>Start_Date</label>
+        @Html.TextBoxFor(e => e.Start_Date, new { @class = "form-control" })
+        @Html.ValidationMessageFor(e => e.Start_Date)
+    </div>
+
+    <div>
+        <input type="submit" value="Update" class="btn btn-primary"/>
+    </div>
+
+}

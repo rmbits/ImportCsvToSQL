@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportCsvToSQL", "ImportCsvToSQL\ImportCsvToSQL.csproj", "{72019DC9-CF19-4DD4-8F8E-F7B328527265}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportCsvToSQL.UnitTests", "ImportCsvToSQL.UnitTests\ImportCsvToSQL.UnitTests.csproj", "{1FE47044-AE44-4326-86E8-C0EDD0387384}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72019DC9-CF19-4DD4-8F8E-F7B328527265}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72019DC9-CF19-4DD4-8F8E-F7B328527265}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72019DC9-CF19-4DD4-8F8E-F7B328527265}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72019DC9-CF19-4DD4-8F8E-F7B328527265}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FE47044-AE44-4326-86E8-C0EDD0387384}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FE47044-AE44-4326-86E8-C0EDD0387384}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FE47044-AE44-4326-86E8-C0EDD0387384}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FE47044-AE44-4326-86E8-C0EDD0387384}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA4E45F3-794B-4935-83C5-064C4C26DCA1}
+	EndGlobalSection
+EndGlobal
