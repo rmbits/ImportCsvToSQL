@@ -103,19 +103,29 @@ namespace ImportCsvToSQL.Controllers
             {
                 try
                 {
-                    FileService fileService = new FileService();
+                    if(file.ContentLength < 50000)
+                    {
+                        FileService fileService = new FileService();
 
-                    // Save csv file in local folder
-                    var path = fileService.FilePath(file);
-                    file.SaveAs(path);
+                        // Save csv file in local folder
+                        var path = fileService.FilePath(file);
 
-                    // Get employees data from saved csv file
-                    var records = fileService.GetEmployeesFromCsv(path).ToList();
+                        file.SaveAs(path);
 
-                    _dbRepository.AddEmployees(records);
+                        // Get employees data from saved csv file
+                        var records = fileService.GetEmployeesFromCsv(path).ToList();
 
-                    TempData["SuccessMessage"] = records.Count + " rows were successfully imported.";
+                        if(records.Count < 5000)
+                        {
+                            _dbRepository.AddEmployees(records);
 
+                            TempData["SuccessMessage"] = records.Count + " rows were successfully imported.";
+                        }
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Either file size is large or number of rows exceeds 5000.";
+                    }
                 }
                 catch (Exception e)
                 {
